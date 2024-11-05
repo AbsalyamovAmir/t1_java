@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
+/**
+ * DTO for {@link ru.t1.java.demo.model.Transaction}
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

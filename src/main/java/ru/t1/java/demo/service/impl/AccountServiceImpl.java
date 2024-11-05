@@ -12,6 +12,9 @@ import ru.t1.java.demo.util.AccountMapper;
 
 import java.util.List;
 
+/**
+ * Сервис для работы с сущностью Account
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -19,19 +22,32 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
 
+    /**
+     * Получение Account по id
+     * @param id идентификатор записи Account
+     * @return Dto для Account
+     */
     @Override
     public AccountDto getAccountById(Long id) {
         Account account = accountRepository.findById(id).orElse(null);
         return AccountMapper.toDto(account);
     }
 
+    /**
+     * Сохранение Account
+     * @param accountDto полученная Dto для Account
+     */
     @Override
-    public void saveAccount(AccountDto account) {
-        accountRepository.save(AccountMapper.toEntity(account));
+    public void saveAccount(AccountDto accountDto) {
+        accountRepository.save(AccountMapper.toEntity(accountDto));
     }
 
+    /**
+     * Генерация записей Account
+     * @param count количество записей
+     */
     @Override
-    public void createAccounts(int count) {
+    public void generateAccounts(int count) {
         List<Account> accounts = DataGenerator.generateAccounts(count);
         accountRepository.saveAll(accounts);
     }

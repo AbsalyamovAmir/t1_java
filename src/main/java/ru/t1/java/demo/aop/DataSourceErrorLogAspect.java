@@ -11,6 +11,9 @@ import ru.t1.java.demo.repository.DataSourceErrorLogRepository;
 
 import java.util.Arrays;
 
+/**
+ * Аспект логирующий сообщения об исключениях, если в результате CRUD-операций над сущностями возникла ошибка
+ */
 @Aspect
 @Component
 @AllArgsConstructor
@@ -19,6 +22,12 @@ public class DataSourceErrorLogAspect {
 
     private final DataSourceErrorLogRepository dataSourceErrorLogRepository;
 
+    /**
+     * Метод для обработки перехвата метода
+     * Если происходит ошибка, создаем запись для БД
+     * @param proceedingJoinPoint Вызов метода
+     * @return Результат выполнения метода
+     */
     @Around("@annotation(ru.t1.java.demo.aop.DataSourceErrorLogTrack)")
     public Object logDataSourceError(ProceedingJoinPoint proceedingJoinPoint) {
         String methodSignature = proceedingJoinPoint.getSignature().toShortString();

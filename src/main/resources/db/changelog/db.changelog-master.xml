@@ -15,12 +15,17 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
     </changeSet>
 
     <changeSet id="create-transaction-and-account" author="absa">
-        <sqlFile encoding="utf8" path="/db/changelog/2024/09/16-01-changelog-03.sql"/>
+        <sqlFile encoding="utf8" path="/db/changelog/2024/09/04-11-changelog-01.sql"/>
         <rollback/>
     </changeSet>
 
     <changeSet id="add-transaction-and-account_seq" author="absa">
-        <sqlFile encoding="utf8" path="/db/changelog/2024/09/16-01-changelog-04.sql"/>
+        <sqlFile encoding="utf8" path="/db/changelog/2024/09/04-11-changelog-02.sql"/>
+        <rollback/>
+    </changeSet>
+
+    <changeSet id="add-add_data_source_error_log_sequence" author="absa">
+        <sqlFile encoding="utf8" path="/db/changelog/2024/09/05-11-changelog-01.sql"/>
         <rollback/>
     </changeSet>
 

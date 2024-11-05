@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Класс-генератор данных
+ */
 public class DataGenerator {
 
     private static final Random random = new Random();

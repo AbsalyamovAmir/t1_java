@@ -1,7 +1,7 @@
 package ru.t1.java.demo.enums;
 
 /**
- * Класс перечеслений типов аккаунта
+ * Класс перечислений типов аккаунта
  */
 public enum AccountType {
     DEBIT,

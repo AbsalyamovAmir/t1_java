@@ -13,6 +13,9 @@ import ru.t1.java.demo.util.TransactionMapper;
 
 import java.util.List;
 
+/**
+ * Сервис для работы с сущностью Transaction
+ */
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -20,17 +23,30 @@ public class TransactionServiceImpl implements TransactionService {
 
     private final TransactionRepository transactionRepository;
 
+    /**
+     * Получение Transaction по id
+     * @param id идентификатор записи Transaction
+     * @return Dto для Transaction
+     */
     @Override
     public TransactionDto getTransactionById(Long id) {
         Transaction transaction = transactionRepository.findById(id).orElse(null);
         return TransactionMapper.toDto(transaction);
     }
 
+    /**
+     * Сохранение Transaction
+     * @param transactionDto полученная Dto для Transaction
+     */
     @Override
     public void saveTransaction(TransactionDto transactionDto) {
         transactionRepository.save(TransactionMapper.toEntity(transactionDto));
     }
 
+    /**
+     * Генерация записей Transaction
+     * @param count количество записей
+     */
     @Override
     public void generateTransactions(int count) {
         List<Transaction> transactions = DataGenerator.generateTransactions(count);
