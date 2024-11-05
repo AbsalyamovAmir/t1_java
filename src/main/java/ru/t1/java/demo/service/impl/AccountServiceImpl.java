@@ -4,10 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.t1.java.demo.dto.AccountDto;
+import ru.t1.java.demo.generator.DataGenerator;
 import ru.t1.java.demo.model.Account;
 import ru.t1.java.demo.repository.AccountRepository;
 import ru.t1.java.demo.service.AccountService;
 import ru.t1.java.demo.util.AccountMapper;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +28,11 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void saveAccount(AccountDto account) {
         accountRepository.save(AccountMapper.toEntity(account));
+    }
+
+    @Override
+    public void createAccounts(int count) {
+        List<Account> accounts = DataGenerator.generateAccounts(count);
+        accountRepository.saveAll(accounts);
     }
 }

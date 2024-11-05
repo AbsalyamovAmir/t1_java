@@ -8,4 +8,6 @@ public interface AccountService {
     AccountDto getAccountById(Long id);
 
     void saveAccount(AccountDto account);
+
+    void createAccounts(int count);
 }
