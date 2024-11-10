@@ -29,7 +29,6 @@ public class LogDataSourceErrorKafkaConfig<T> {
     private String demoMetricTopic;
 
     @Bean("logDataSourceError")
-    @Primary
     public KafkaTemplate<String, T> kafkaLogDataSourceErrorTemplate(@Qualifier("producerLogDataSourceErrorFactory") ProducerFactory<String, T> producerPatFactory) {
         return new KafkaTemplate<>(producerPatFactory);
     }

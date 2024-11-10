@@ -50,7 +50,7 @@ public class DataSourceErrorLogAspect {
                 kafkaLogDataSourceErrorProducer.send(errorLogDto);
             } catch (KafkaSendException e) {
                 log.error("Kafka sending error: {}", e.getMessage());
-                DataSourceErrorLog dataSourceErrorLog = new DataSourceErrorLog().builder()
+                DataSourceErrorLog dataSourceErrorLog = DataSourceErrorLog.builder()
                         .exceptionStackTrace(Arrays.toString(throwable.getStackTrace()))
                         .errorMessage(throwable.getMessage())
                         .methodSignature(methodSignature)
