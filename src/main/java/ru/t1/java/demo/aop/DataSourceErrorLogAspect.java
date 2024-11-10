@@ -6,6 +6,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
+import ru.t1.java.demo.dto.DataSourceErrorLogDto;
+import ru.t1.java.demo.exception.KafkaSendException;
+import ru.t1.java.demo.kafka.KafkaLogDataSourceErrorProducer;
 import ru.t1.java.demo.model.DataSourceErrorLog;
 import ru.t1.java.demo.repository.DataSourceErrorLogRepository;
 
@@ -21,6 +24,7 @@ import java.util.Arrays;
 public class DataSourceErrorLogAspect {
 
     private final DataSourceErrorLogRepository dataSourceErrorLogRepository;
+    private final KafkaLogDataSourceErrorProducer kafkaLogDataSourceErrorProducer;
 
     /**
      * Метод для обработки перехвата метода
@@ -37,11 +41,23 @@ public class DataSourceErrorLogAspect {
             result = proceedingJoinPoint.proceed();
         } catch (Throwable throwable) {
             log.warn("Что-то пошло не так: {}", throwable.getMessage());
-            DataSourceErrorLog dataSourceErrorLog = new DataSourceErrorLog();
-            dataSourceErrorLog.setExceptionStackTrace(Arrays.toString(throwable.getStackTrace()));
-            dataSourceErrorLog.setMethodSignature(methodSignature);
-            dataSourceErrorLog.setErrorMessage(throwable.getMessage());
-            dataSourceErrorLogRepository.save(dataSourceErrorLog);
+            DataSourceErrorLogDto errorLogDto = DataSourceErrorLogDto.builder()
+                    .exceptionStackTrace(Arrays.toString(throwable.getStackTrace()))
+                    .errorMessage(throwable.getMessage())
+                    .methodSignature(methodSignature)
+                    .build();
+            try {
+                kafkaLogDataSourceErrorProducer.send(errorLogDto);
+            } catch (KafkaSendException e) {
+                log.error("Kafka sending error: {}", e.getMessage());
+                DataSourceErrorLog dataSourceErrorLog = new DataSourceErrorLog().builder()
+                        .exceptionStackTrace(Arrays.toString(throwable.getStackTrace()))
+                        .errorMessage(throwable.getMessage())
+                        .methodSignature(methodSignature)
+                        .build();
+                dataSourceErrorLogRepository.save(dataSourceErrorLog);
+                log.warn("Error has been saved in DB, {}", dataSourceErrorLog);
+            }
         }
         return result;
     }
