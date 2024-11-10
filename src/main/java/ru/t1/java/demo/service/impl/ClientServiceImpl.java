@@ -9,6 +9,7 @@ import ru.t1.java.demo.aop.Track;
 import ru.t1.java.demo.aop.HandlingResult;
 import ru.t1.java.demo.aop.LogExecution;
 import ru.t1.java.demo.dto.ClientDto;
+import ru.t1.java.demo.exception.ClientException;
 import ru.t1.java.demo.model.Client;
 import ru.t1.java.demo.repository.ClientRepository;
 import ru.t1.java.demo.service.ClientService;
@@ -48,5 +49,25 @@ public class ClientServiceImpl implements ClientService {
         return Arrays.stream(clients)
                 .map(ClientMapper::toEntity)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Client findById(Long id) {
+        return repository.findById(id).orElseThrow(() -> new ClientException("Client with ID " + id + " not found"));
+    }
+
+    @Override
+    public List<Client> findAll() {
+        return repository.findAll();
+    }
+
+    @Override
+    public void generateClients() {
+        try {
+            List<Client> clients = parseJson();
+            repository.saveAll(clients);
+        } catch (IOException e) {
+            log.error("Ошибка во время обработки записей", e);
+        }
     }
 }

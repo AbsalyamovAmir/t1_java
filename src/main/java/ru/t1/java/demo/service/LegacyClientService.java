@@ -9,6 +9,7 @@ import ru.t1.java.demo.repository.ClientRepository;
 import ru.t1.java.demo.util.ClientMapper;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -46,6 +47,10 @@ public class LegacyClientService {
 
 //        log.debug("Client info: {}", clientDto.toString());
         return clientDto;
+    }
+
+    public List<Client> getListClients() {
+        return repository.findAll();
     }
 
 }

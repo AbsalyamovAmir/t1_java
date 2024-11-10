@@ -4,10 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.t1.java.demo.dto.AccountDto;
+import ru.t1.java.demo.exception.AccountException;
+import ru.t1.java.demo.exception.ClientException;
 import ru.t1.java.demo.generator.DataGenerator;
 import ru.t1.java.demo.model.Account;
+import ru.t1.java.demo.model.Client;
 import ru.t1.java.demo.repository.AccountRepository;
 import ru.t1.java.demo.service.AccountService;
+import ru.t1.java.demo.service.ClientService;
 import ru.t1.java.demo.util.AccountMapper;
 
 import java.util.List;
@@ -21,6 +25,8 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
+    private final ClientService clientService;
+    private final AccountMapper accountMapper;
 
     /**
      * Получение Account по id
@@ -29,8 +35,9 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public AccountDto getAccountById(Long id) {
-        Account account = accountRepository.findById(id).orElse(null);
-        return AccountMapper.toDto(account);
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new AccountException("Account with ID " + id + " not found"));
+        return accountMapper.toDto(account);
     }
 
     /**
@@ -39,7 +46,7 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public void saveAccount(AccountDto accountDto) {
-        accountRepository.save(AccountMapper.toEntity(accountDto));
+        accountRepository.save(accountMapper.toEntity(accountDto));
     }
 
     /**
@@ -48,7 +55,21 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     public void generateAccounts(int count) {
-        List<Account> accounts = DataGenerator.generateAccounts(count);
+        List<Client> clients = clientService.findAll();
+        if (clients.isEmpty()) {
+            throw new ClientException("No clients found");
+        }
+        List<Account> accounts = DataGenerator.generateAccounts(count, clients);
         accountRepository.saveAll(accounts);
+    }
+
+    @Override
+    public Account findById(Long id) {
+        return accountRepository.findById(id).orElseThrow(() -> new ClientException("Account with ID " + id + " not found"));
+    }
+
+    @Override
+    public List<Account> findAll() {
+        return accountRepository.findAll();
     }
 }

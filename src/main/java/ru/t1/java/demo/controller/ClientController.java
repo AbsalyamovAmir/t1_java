@@ -3,6 +3,8 @@ package ru.t1.java.demo.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.t1.java.demo.aop.HandlingResult;
 import ru.t1.java.demo.aop.Track;
@@ -13,6 +15,7 @@ import ru.t1.java.demo.service.ClientService;
 import java.io.IOException;
 
 @RestController
+@RequestMapping("/client")
 @RequiredArgsConstructor
 @Slf4j
 public class ClientController {
@@ -21,7 +24,7 @@ public class ClientController {
 
     @LogException
     @Track
-    @GetMapping(value = "/client")
+    @GetMapping(value = "/doSomething")
     @HandlingResult
     public void doSomething() throws IOException, InterruptedException {
 //        try {
@@ -34,4 +37,8 @@ public class ClientController {
 //        }
     }
 
+    @PostMapping(value = "/generate")
+    public void generateClient() {
+        clientService.generateClients();
+    }
 }

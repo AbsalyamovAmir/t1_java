@@ -17,6 +17,7 @@ public class TransactionController {
      * Создание Transaction
      * @param transactionDto Dto для Transaction
      */
+    @DataSourceErrorLogTrack
     @PostMapping
     public void createTransaction(@RequestBody TransactionDto transactionDto) {
         transactionService.saveTransaction(transactionDto);
@@ -26,6 +27,7 @@ public class TransactionController {
      * Генерация записей Transaction по заданному количеству
      * @param count Количество записей
      */
+    @DataSourceErrorLogTrack
     @PostMapping("/generate")
     public void generateTransactions(@RequestParam int count) {
         transactionService.generateTransactions(count);

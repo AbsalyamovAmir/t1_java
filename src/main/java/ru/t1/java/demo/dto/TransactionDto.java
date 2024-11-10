@@ -19,6 +19,8 @@ import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TransactionDto {
     private Long id;
+    @JsonProperty("account_id")
+    private Long accountId;
     @JsonProperty("sum_transaction")
     private double sumTransaction;
     @JsonProperty("time_transaction")

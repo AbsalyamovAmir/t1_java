@@ -29,4 +29,14 @@ http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
         <rollback/>
     </changeSet>
 
+    <changeSet id="update-account-table" author="absa">
+        <sqlFile encoding="utf8" path="/db/changelog/2024/09/10-11-changelog-01.sql"/>
+        <rollback/>
+    </changeSet>
+
+    <changeSet id="update-transaction-table" author="absa">
+        <sqlFile encoding="utf8" path="/db/changelog/2024/09/10-11-changelog-02.sql"/>
+        <rollback/>
+    </changeSet>
+
 </databaseChangeLog>

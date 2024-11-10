@@ -20,6 +20,7 @@ public class AccountController {
      * Создание Account
      * @param accountDto Dto для Account
      */
+    @DataSourceErrorLogTrack
     @PostMapping
     public void createAccount(@RequestBody AccountDto accountDto) {
         accountService.saveAccount(accountDto);
@@ -29,6 +30,7 @@ public class AccountController {
      * Генерация записей Account по заданному количеству
      * @param count Количество записей
      */
+    @DataSourceErrorLogTrack
     @PostMapping("/generate")
     public void generateAccounts(@RequestParam int count) {
         accountService.generateAccounts(count);

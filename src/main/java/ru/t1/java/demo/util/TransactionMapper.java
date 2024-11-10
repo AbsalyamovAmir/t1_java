@@ -1,22 +1,28 @@
 package ru.t1.java.demo.util;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.t1.java.demo.dto.ClientDto;
 import ru.t1.java.demo.dto.TransactionDto;
 import ru.t1.java.demo.model.Client;
 import ru.t1.java.demo.model.Transaction;
+import ru.t1.java.demo.service.AccountService;
 
 @Component
+@RequiredArgsConstructor
 public class TransactionMapper {
 
-    public static Transaction toEntity(TransactionDto dto) {
+    private final AccountService accountService;
+
+    public Transaction toEntity(TransactionDto transactionDto) {
         return Transaction.builder()
-                .sumTransaction(dto.getSumTransaction())
-                .timeTransaction(dto.getTimeTransaction())
+                .account(accountService.findById(transactionDto.getAccountId()))
+                .sumTransaction(transactionDto.getSumTransaction())
+                .timeTransaction(transactionDto.getTimeTransaction())
                 .build();
     }
 
-    public static TransactionDto toDto(Transaction entity) {
+    public TransactionDto toDto(Transaction entity) {
         return TransactionDto.builder()
                 .id(entity.getId())
                 .sumTransaction(entity.getSumTransaction())

@@ -20,6 +20,8 @@ import java.io.Serializable;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccountDto implements Serializable {
     private Long id;
+    @JsonProperty("client_id")
+    private Long clientId;
     @JsonProperty("account_type")
     private AccountType accountType;
     @JsonProperty("balance")
