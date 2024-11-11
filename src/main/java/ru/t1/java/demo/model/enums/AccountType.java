@@ -1,4 +1,4 @@
-package ru.t1.java.demo.enums;
+package ru.t1.java.demo.model.enums;
 
 /**
  * Класс перечислений типов аккаунта

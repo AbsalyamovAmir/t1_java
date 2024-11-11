@@ -7,34 +7,35 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Component;
-import ru.t1.java.demo.model.dto.DataSourceErrorLogDto;
+import ru.t1.java.demo.model.dto.MetricDto;
 import ru.t1.java.demo.exception.KafkaSendException;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class KafkaLogDataSourceErrorProducer {
+public class KafkaMetricProducer {
 
     private static final String TOPIC_NAME = "t1_demo_metrics";
-    private static final String ERROR_TYPE = "DATA_SOURCE";
-    private final KafkaTemplate<String, Object> logDataSourceErrorKafkaTemplate;
+    private static final String ERROR_TYPE = "METRICS";
+    private final KafkaTemplate<String, Object> metricsKafkaTemplate;
 
     /**
      * Метод для отправки сообщения в Kafka
-     * @param dataSourceErrorLogDto Объект ошибки
+     * @param metricDto Объект ошибки
      */
-    public void send(DataSourceErrorLogDto dataSourceErrorLogDto) {
-        Message<DataSourceErrorLogDto> message = MessageBuilder.withPayload(dataSourceErrorLogDto)
+    public void send(MetricDto metricDto) {
+        Message<MetricDto> message = MessageBuilder.withPayload(metricDto)
                 .setHeader(KafkaHeaders.TOPIC, TOPIC_NAME)
                 .setHeader("errorType", ERROR_TYPE)
                 .build();
         try {
-            logDataSourceErrorKafkaTemplate.send(message);
+            metricsKafkaTemplate.send(message);
         } catch (Exception ex) {
             log.error(ex.getMessage(), ex);
-            throw new KafkaSendException("KafkaLogDataSourceErrorProducer sending error", ex);
+            throw new KafkaSendException("KafkaMetricProducer sending error", ex);
         } finally {
-            logDataSourceErrorKafkaTemplate.flush();
+            metricsKafkaTemplate.flush();
         }
     }
 }
+

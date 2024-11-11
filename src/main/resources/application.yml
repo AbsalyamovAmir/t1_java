@@ -32,5 +32,7 @@ t1:
       client_id_registered: t1_demo_client_registered
       client_transactions: t1_demo_client_transactions
       demo_metrics: t1_demo_metrics
+      demo_accounts: t1_demo_accounts
+      demo_transactions: t1_demo_transactions
     listener:
       poll-timeout: 1000

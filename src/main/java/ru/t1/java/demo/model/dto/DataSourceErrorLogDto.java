@@ -1,4 +1,4 @@
-package ru.t1.java.demo.dto;
+package ru.t1.java.demo.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package ru.t1.java.demo.generator;
 
-import ru.t1.java.demo.enums.AccountType;
+import ru.t1.java.demo.model.enums.AccountType;
 import ru.t1.java.demo.model.Account;
 import ru.t1.java.demo.model.Client;
 import ru.t1.java.demo.model.Transaction;

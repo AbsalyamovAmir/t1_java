@@ -1,15 +1,9 @@
 package ru.t1.java.demo.util;
 
-import jakarta.persistence.Column;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import ru.t1.java.demo.dto.AccountDto;
-import ru.t1.java.demo.dto.ClientDto;
-import ru.t1.java.demo.exception.ClientException;
+import ru.t1.java.demo.model.dto.AccountDto;
 import ru.t1.java.demo.model.Account;
-import ru.t1.java.demo.model.Client;
-import ru.t1.java.demo.repository.ClientRepository;
 import ru.t1.java.demo.service.ClientService;
 
 @Component

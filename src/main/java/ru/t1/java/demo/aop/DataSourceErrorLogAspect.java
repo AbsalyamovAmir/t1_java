@@ -6,7 +6,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
-import ru.t1.java.demo.dto.DataSourceErrorLogDto;
+import ru.t1.java.demo.model.dto.DataSourceErrorLogDto;
 import ru.t1.java.demo.exception.KafkaSendException;
 import ru.t1.java.demo.kafka.KafkaLogDataSourceErrorProducer;
 import ru.t1.java.demo.model.DataSourceErrorLog;

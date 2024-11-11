@@ -2,9 +2,7 @@ package ru.t1.java.demo.util;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import ru.t1.java.demo.dto.ClientDto;
-import ru.t1.java.demo.dto.TransactionDto;
-import ru.t1.java.demo.model.Client;
+import ru.t1.java.demo.model.dto.TransactionDto;
 import ru.t1.java.demo.model.Transaction;
 import ru.t1.java.demo.service.AccountService;
 

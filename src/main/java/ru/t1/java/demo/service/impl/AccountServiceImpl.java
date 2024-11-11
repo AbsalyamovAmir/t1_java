@@ -3,7 +3,7 @@ package ru.t1.java.demo.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import ru.t1.java.demo.dto.AccountDto;
+import ru.t1.java.demo.model.dto.AccountDto;
 import ru.t1.java.demo.exception.AccountException;
 import ru.t1.java.demo.exception.ClientException;
 import ru.t1.java.demo.generator.DataGenerator;
@@ -45,8 +45,8 @@ public class AccountServiceImpl implements AccountService {
      * @param accountDto полученная Dto для Account
      */
     @Override
-    public void saveAccount(AccountDto accountDto) {
-        accountRepository.save(accountMapper.toEntity(accountDto));
+    public Account saveAccount(AccountDto accountDto) {
+        return accountRepository.save(accountMapper.toEntity(accountDto));
     }
 
     /**
