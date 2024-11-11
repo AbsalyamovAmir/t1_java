@@ -3,6 +3,7 @@ package ru.t1.java.demo.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.java.demo.aop.DataSourceErrorLogTrack;
+import ru.t1.java.demo.aop.Metric;
 import ru.t1.java.demo.model.dto.AccountDto;
 import ru.t1.java.demo.service.AccountService;
 
@@ -21,6 +22,7 @@ public class AccountController {
      * @param accountDto Dto для Account
      */
     @DataSourceErrorLogTrack
+    @Metric(value = 1000)
     @PostMapping
     public void createAccount(@RequestBody AccountDto accountDto) {
         accountService.saveAccount(accountDto);
@@ -31,6 +33,7 @@ public class AccountController {
      * @param count Количество записей
      */
     @DataSourceErrorLogTrack
+    @Metric(value = 1000)
     @PostMapping("/generate")
     public void generateAccounts(@RequestParam int count) {
         accountService.generateAccounts(count);
@@ -42,6 +45,7 @@ public class AccountController {
      * @return Dto для Account
      */
     @DataSourceErrorLogTrack
+    @Metric(value = 1000)
     @GetMapping("/{id}")
     public AccountDto getAccount(@PathVariable Long id) {
         return accountService.getAccountById(id);
@@ -52,8 +56,15 @@ public class AccountController {
      * @throws RuntimeException Исключение для тестирования
      */
     @DataSourceErrorLogTrack
+    @Metric(value = 1000)
     @GetMapping("/test-error")
     public void testError() throws Exception {
+        Thread.sleep(15000);
         throw new Exception("Тестовое исключение для проверки логирования Transaction.");
+    }
+
+    @PostMapping("/sendAccount")
+    public void sendAccount(@RequestBody AccountDto accountDto) {
+        accountService.sendAccount(accountDto);
     }
 }

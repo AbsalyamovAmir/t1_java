@@ -31,7 +31,7 @@ import java.util.Map;
 @Configuration
 public class DemoKafkaConfig<T> {
 
-    @Value("${t1.kafka.consumer.group-id}")
+    @Value("${t1.kafka.consumer.groupDemo.group-id}")
     private String groupId;
     @Value("${t1.kafka.bootstrap.server}")
     private String servers;

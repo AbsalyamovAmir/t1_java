@@ -48,8 +48,8 @@ public class ClientServiceImpl implements ClientService {
 //        Optional<CheckResponse> check = checkWebClient.check(client.getId());
 //        if (check.isPresent()) {
 //            if (!check.get().getBlocked()) {
-//                saved = repository.save(client);
-//                kafkaClientProducer.send(client.getId());
+                saved = repository.save(client);
+                kafkaClientProducer.send(client.getId());
 //            }
 //        }
         return saved;

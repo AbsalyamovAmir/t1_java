@@ -22,7 +22,7 @@ public class KafkaClientConsumer {
 
     private final ClientService clientService;
 
-    @KafkaListener(id = "${t1.kafka.consumer.group-id}",
+    @KafkaListener(id = "${t1.kafka.consumer.groupDemo.group-id}",
             topics = "${t1.kafka.topic.client_registration}",
             containerFactory = "kafkaListenerContainerFactory")
     public void listener(@Payload List<ClientDto> messageList,

@@ -19,4 +19,6 @@ public interface AccountService {
     Account findById(Long id);
 
     List<Account> findAll();
+
+    Account sendAccount(AccountDto accountDto);
 }

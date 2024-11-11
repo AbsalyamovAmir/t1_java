@@ -25,7 +25,7 @@ import java.util.Map;
 @Slf4j
 public class KafkaTransactionConsumerConfig {
 
-    @Value("${t1.kafka.consumer.group-id}")
+    @Value("${t1.kafka.consumer.groupTransaction.group-id}")
     private String groupId;
     @Value("${t1.kafka.bootstrap.server}")
     private String servers;
@@ -45,7 +45,7 @@ public class KafkaTransactionConsumerConfig {
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, MessageDeserializer.class);
-        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "ru.t1.java.demo.dto.TransactionDto");
+        props.put(JsonDeserializer.VALUE_DEFAULT_TYPE, "ru.t1.java.demo.model.dto.TransactionDto");
         props.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
         props.put(JsonDeserializer.USE_TYPE_INFO_HEADERS, false);
         props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, sessionTimeout);

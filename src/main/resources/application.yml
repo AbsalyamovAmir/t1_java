@@ -23,8 +23,15 @@ t1:
     bootstrap:
       server: ${KAFKA_SERVER:localhost:9092}
     consumer:
-      group-id: t1-demo
-      max.poll.records: 10
+      groupDemo:
+        group-id: t1-demo
+        max.poll.records: 10
+      groupAccount:
+        group-id: t1-demo-account
+        max.poll.records: 10
+      groupTransaction:
+        group-id: t1-demo-transaction
+        max.poll.records: 10
     producer:
       enable: true
     topic:

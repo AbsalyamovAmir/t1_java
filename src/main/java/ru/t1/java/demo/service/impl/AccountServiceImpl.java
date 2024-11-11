@@ -3,6 +3,7 @@ package ru.t1.java.demo.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.t1.java.demo.kafka.KafkaAccountProducer;
 import ru.t1.java.demo.model.dto.AccountDto;
 import ru.t1.java.demo.exception.AccountException;
 import ru.t1.java.demo.exception.ClientException;
@@ -27,6 +28,7 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
     private final ClientService clientService;
     private final AccountMapper accountMapper;
+    private final KafkaAccountProducer kafkaAccountProducer;
 
     /**
      * Получение Account по id
@@ -71,5 +73,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<Account> findAll() {
         return accountRepository.findAll();
+    }
+
+    @Override
+    public Account sendAccount(AccountDto accountDto) {
+        return accountMapper.toEntity(kafkaAccountProducer.send(accountDto));
     }
 }

@@ -18,7 +18,7 @@ public class KafkaTransactionConsumer {
     private final TransactionService transactionService;
     private final TransactionMapper transactionMapper;
 
-    @KafkaListener(id = "${t1.kafka.consumer.group-id}", topics = "${t1.kafka.topic.demo_transactions}", containerFactory = "kafkaTransactionListenerContainerFactory")
+    @KafkaListener(id = "${t1.kafka.consumer.groupTransaction.group-id}", topics = "${t1.kafka.topic.demo_transactions}", containerFactory = "kafkaTransactionListenerContainerFactory")
     public void transactionConsumerListener(TransactionDto transactionDto,
                                             Acknowledgment ack) {
         log.debug("Transaction consumer: Обработка новых сообщений");
