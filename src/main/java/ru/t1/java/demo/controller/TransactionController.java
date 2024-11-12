@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.t1.java.demo.aop.DataSourceErrorLogTrack;
 import ru.t1.java.demo.aop.Metric;
+import ru.t1.java.demo.model.dto.AccountDto;
 import ru.t1.java.demo.model.dto.TransactionDto;
 import ru.t1.java.demo.service.TransactionService;
 
@@ -58,5 +59,10 @@ public class TransactionController {
     public void testError() throws Exception {
         Thread.sleep(1500);
         throw new Exception("Тестовое исключение для проверки логирования Transaction.");
+    }
+
+    @PostMapping("/sendTransaction")
+    public void sendTransaction(@RequestBody TransactionDto transactionDto) {
+        transactionService.sendTransaction(transactionDto);
     }
 }

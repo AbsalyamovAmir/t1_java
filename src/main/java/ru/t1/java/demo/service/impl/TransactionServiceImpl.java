@@ -3,6 +3,7 @@ package ru.t1.java.demo.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import ru.t1.java.demo.kafka.KafkaTransactionProducer;
 import ru.t1.java.demo.model.dto.TransactionDto;
 import ru.t1.java.demo.exception.AccountException;
 import ru.t1.java.demo.exception.TransactionException;
@@ -27,6 +28,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionRepository transactionRepository;
     private final AccountRepository accountRepository;
     private final TransactionMapper transactionMapper;
+    private final KafkaTransactionProducer kafkaTransactionProducer;
 
     /**
      * Получение Transaction по id
@@ -60,5 +62,10 @@ public class TransactionServiceImpl implements TransactionService {
         }
         List<Transaction> transactions = DataGenerator.generateTransactions(count, accounts);
         transactionRepository.saveAll(transactions);
+    }
+
+    @Override
+    public Transaction sendTransaction(TransactionDto transactionDto) {
+        return transactionMapper.toEntity(kafkaTransactionProducer.send(transactionDto));
     }
 }

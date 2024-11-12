@@ -2,18 +2,14 @@ package ru.t1.java.demo.kafka;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
-import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.handler.annotation.Header;
-import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.stereotype.Service;
 import ru.t1.java.demo.model.dto.AccountDto;
 import ru.t1.java.demo.model.Account;
 import ru.t1.java.demo.service.AccountService;
-import ru.t1.java.demo.util.AccountMapper;
 
-@Configuration
+@Service
 @RequiredArgsConstructor
 @Slf4j
 public class KafkaAccountConsumer {
@@ -23,10 +19,8 @@ public class KafkaAccountConsumer {
     @KafkaListener(id = "${t1.kafka.consumer.groupAccount.group-id}",
             topics = "${t1.kafka.topic.demo_accounts}",
             containerFactory = "kafkaAccountListenerContainerFactory")
-    public void accountConsumerListener(@Payload AccountDto accountDto,
-                                        Acknowledgment ack,
-                                        @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
-                                        @Header(KafkaHeaders.RECEIVED_KEY) String key) {
+    public void accountConsumerListener(AccountDto accountDto,
+                                        Acknowledgment ack) {
         log.debug("Account consumer: Обработка новых сообщений");
 
         try {

@@ -13,4 +13,6 @@ public interface TransactionService {
     Transaction saveTransaction(TransactionDto transactionDto);
 
     void generateTransactions(int count);
+
+    Transaction sendTransaction(TransactionDto transactionDto);
 }
