@@ -1,5 +1,6 @@
 package ru.t1.java.demo.service.impl;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import ru.t1.java.demo.service.AccountService;
 import ru.t1.java.demo.service.ClientService;
 import ru.t1.java.demo.util.AccountMapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -47,6 +49,7 @@ public class AccountServiceImpl implements AccountService {
      * @param accountDto полученная Dto для Account
      */
     @Override
+    @Transactional
     public Account saveAccount(AccountDto accountDto) {
         return accountRepository.save(accountMapper.toEntity(accountDto));
     }
@@ -56,6 +59,7 @@ public class AccountServiceImpl implements AccountService {
      * @param count количество записей
      */
     @Override
+    @Transactional
     public void generateAccounts(int count) {
         List<Client> clients = clientService.findAll();
         if (clients.isEmpty()) {
@@ -76,7 +80,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public Account sendAccount(AccountDto accountDto) {
         return accountMapper.toEntity(kafkaAccountProducer.send(accountDto));
+    }
+
+    @Override
+    public Account updateAccountSum(Account account, BigDecimal sum) {
+        return null;
     }
 }

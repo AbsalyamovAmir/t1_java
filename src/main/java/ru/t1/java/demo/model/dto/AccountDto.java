@@ -2,13 +2,16 @@ package ru.t1.java.demo.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.t1.java.demo.model.enums.AccountStatus;
 import ru.t1.java.demo.model.enums.AccountType;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * DTO for {@link ru.t1.java.demo.model.Account}
@@ -25,5 +28,11 @@ public class AccountDto implements Serializable {
     @JsonProperty("account_type")
     private AccountType accountType;
     @JsonProperty("balance")
-    private double balance;
+    private BigDecimal balance;
+    @JsonProperty("accountStatus")
+    private AccountStatus accountStatus;
+    @JsonProperty("accountId")
+    private long accountId;
+    @JsonProperty("frozenAmount")
+    private BigDecimal frozenAmount;
 }

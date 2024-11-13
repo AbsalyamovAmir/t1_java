@@ -3,6 +3,7 @@ package ru.t1.java.demo.service;
 import ru.t1.java.demo.model.dto.AccountDto;
 import ru.t1.java.demo.model.Account;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,4 +22,6 @@ public interface AccountService {
     List<Account> findAll();
 
     Account sendAccount(AccountDto accountDto);
+
+    Account updateAccountSum(Account account, BigDecimal sum);
 }

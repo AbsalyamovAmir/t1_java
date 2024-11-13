@@ -3,7 +3,9 @@ package ru.t1.java.demo.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;
+import ru.t1.java.demo.model.enums.TransactionStatus;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -26,11 +28,20 @@ public class Transaction extends AbstractPersistable<Long> {
      * Сумма транзакции
      */
     @Column(name = "sum_transaction")
-    private double sumTransaction;
+    private BigDecimal sumTransaction;
 
     /**
      * Время транзакции
      */
     @Column(name = "time_transaction")
     private Date timeTransaction;
+
+    @Column(name = "transaction_status")
+    private TransactionStatus transactionStatus;
+
+    @Column(name = "transaction_id")
+    private long transactionId;
+
+    @Column(name = "timestamp")
+    private Date timestamp;
 }

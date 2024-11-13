@@ -17,6 +17,9 @@ public class AccountMapper {
                 .client(clientService.findById(accountDto.getClientId()))
                 .accountType(accountDto.getAccountType())
                 .balance(accountDto.getBalance())
+                .accountStatus(accountDto.getAccountStatus())
+                .accountId(accountDto.getAccountId())
+                .frozenAmount(accountDto.getFrozenAmount())
                 .build();
     }
 
@@ -25,6 +28,9 @@ public class AccountMapper {
                 .id(entity.getId())
                 .accountType(entity.getAccountType())
                 .balance(entity.getBalance())
+                .accountStatus(entity.getAccountStatus())
+                .accountId(entity.getAccountId())
+                .frozenAmount(entity.getFrozenAmount())
                 .build();
     }
 }

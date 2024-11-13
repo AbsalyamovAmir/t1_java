@@ -17,6 +17,9 @@ public class TransactionMapper {
                 .account(accountService.findById(transactionDto.getAccountId()))
                 .sumTransaction(transactionDto.getSumTransaction())
                 .timeTransaction(transactionDto.getTimeTransaction())
+                .transactionStatus(transactionDto.getTransactionStatus())
+                .transactionId(transactionDto.getTransactionId())
+                .timestamp(transactionDto.getTimestamp())
                 .build();
     }
 
@@ -25,6 +28,9 @@ public class TransactionMapper {
                 .id(entity.getId())
                 .sumTransaction(entity.getSumTransaction())
                 .timeTransaction(entity.getTimeTransaction())
+                .transactionStatus(entity.getTransactionStatus())
+                .transactionId(entity.getTransactionId())
+                .timestamp(entity.getTimestamp())
                 .build();
     }
 }
